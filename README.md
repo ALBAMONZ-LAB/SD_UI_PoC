@@ -1,7 +1,25 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Directory path
+
+```
+src/
+├── app.module.ts         // Set up GraphQLModule and create a GraphQL server
+└── cards/                
+    ├── models/           
+    │   └── card.model.ts // Define GraphQL types
+    ├── cards.module.ts   // Manage NestJS dependencies
+    ├── cards.resolver.ts // Link GraphQL queries to data
+    ├── cards.service.ts  // Handle business logic
+    └── data/             
+        └── cardData.ts   // Dummy card data
+
+```
+
+
+
+
 
 ## Project setup
 
