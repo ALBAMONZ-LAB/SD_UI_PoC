@@ -4,7 +4,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthorsModule } from './authors/authors.module';
+import { CardsModule } from './cards/cards.module';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { AuthorsModule } from './authors/authors.module';
       sortSchema: true,
       playground: true,
     }),
-    AuthorsModule,
+    CardsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
