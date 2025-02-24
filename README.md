@@ -42,14 +42,26 @@ $ pnpm run start:prod
 
 ## Run tests
 
-```bash
-# unit tests
-$ pnpm run test
+you can test this query using a graphql playground.
 
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
 ```
+query {
+  getCards {
+    resultCode
+    resultMessage
+    totalCount
+    row
+    column
+    collection {
+      franchiseCode
+      franchiseName
+      franchiseLogo
+      keywordCode
+      keywordName
+      partCode
+      partName
+    }
+  }
+}
 
+```
