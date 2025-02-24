@@ -42,7 +42,7 @@ $ pnpm run start:prod
 
 ## Run tests
 
-you can test this query using a graphql playground.
+You can test these queries in a GraphQL playground.
 
 ```
 query {
@@ -64,4 +64,31 @@ query {
   }
 }
 
+```
+
+```
+query {
+  getEventPageComponents(eventId: "event-123") {
+    resultCode
+    resultMessage
+    eventId
+    components {
+      ... on TitleComponent {
+        type
+        text
+        fontSize
+        fontWeight
+        color
+      }
+      ... on FloatingButtonComponent {
+        type
+        text
+        backgroundColor
+        textColor
+        bottom
+        onClick
+      }
+    }
+  }
+}
 ```
