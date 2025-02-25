@@ -5,9 +5,9 @@ import { eventData } from './data/eventData';
 @Injectable()
 export class EventsService {
   async getEventPageComponents(eventId: string): Promise<ComponentResponse> {
-    return {
+    return Promise.resolve({
       ...eventData,
       eventId,
-    };
+    });
   }
 }

@@ -1,5 +1,4 @@
 import { Field, ObjectType, ID, registerEnumType, createUnionType } from '@nestjs/graphql';
-import GraphQLJSON from 'graphql-type-json';
 
 export enum ComponentType {
   TITLE = 'TITLE',
@@ -53,10 +52,10 @@ export class ImageComponent {
   @Field({ nullable: true })
   textAlign?: string;
 
-  @Field(() => String, { nullable: true })
+  @Field({ nullable: true })
   width?: string | number;
 
-  @Field(() => Number, { nullable: true })
+  @Field({ nullable: true })
   height?: number;
 }
 
@@ -246,11 +245,11 @@ export class SplitComponent {
   paddingRight?: string;
 }
 
-
 /** to define Union type */
 export const ComponentUnion = createUnionType({
-    name: 'ComponentUnion',
-    types: () => [
+  name: 'ComponentUnion',
+  types: () =>
+    [
       TitleComponent,
       ImageComponent,
       FloatingButtonComponent,
@@ -260,19 +259,17 @@ export const ComponentUnion = createUnionType({
       FooterComponent,
       SplitComponent,
     ] as const,
-    resolveType(value) {
-      if (value.type === ComponentType.TITLE) return TitleComponent.name;
-      if (value.type === ComponentType.IMAGE) return ImageComponent.name;
-      if (value.type === ComponentType.FLOATING_BUTTON) return FloatingButtonComponent.name;
-      if (value.type === ComponentType.IMAGE_WITH_BUTTON) return ImageWithButtonComponent.name;
-      if (value.type === ComponentType.CAROUSEL) return CarouselComponent.name;
-      if (value.type === ComponentType.BUTTON) return ButtonComponent.name;
-      if (value.type === ComponentType.FOOTER) return FooterComponent.name;
-      if (value.type === ComponentType.SPLIT) return SplitComponent.name;
-    },
-  });
-  
-  
+  resolveType(value) {
+    if (value.type === ComponentType.TITLE) return TitleComponent.name;
+    if (value.type === ComponentType.IMAGE) return ImageComponent.name;
+    if (value.type === ComponentType.FLOATING_BUTTON) return FloatingButtonComponent.name;
+    if (value.type === ComponentType.IMAGE_WITH_BUTTON) return ImageWithButtonComponent.name;
+    if (value.type === ComponentType.CAROUSEL) return CarouselComponent.name;
+    if (value.type === ComponentType.BUTTON) return ButtonComponent.name;
+    if (value.type === ComponentType.FOOTER) return FooterComponent.name;
+    if (value.type === ComponentType.SPLIT) return SplitComponent.name;
+  },
+});
 
 /** to get a component type dynamically */
 @ObjectType()
@@ -289,5 +286,3 @@ export class ComponentResponse {
   @Field(() => [ComponentUnion])
   components: Array<typeof ComponentUnion>;
 }
-
-  

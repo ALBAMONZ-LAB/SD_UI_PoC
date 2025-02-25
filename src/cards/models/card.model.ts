@@ -2,7 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Card {
-  @Field(type => Int)
+  @Field(() => Int)
   franchiseCode: number;
 
   @Field()
@@ -32,15 +32,15 @@ export class CardResponse {
   @Field()
   resultMessage: string;
 
-  @Field(type => Int)
+  @Field(() => Int)
   totalCount: number;
 
-  @Field(type => Int)
+  @Field(() => Int)
   row: number;
 
-  @Field(type => Int)
+  @Field(() => Int)
   column: number;
 
-  @Field(type => [Card])
+  @Field(() => [Card])
   collection: Card[];
 }

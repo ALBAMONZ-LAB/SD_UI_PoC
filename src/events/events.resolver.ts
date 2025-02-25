@@ -7,9 +7,7 @@ export class EventsResolver {
   constructor(private readonly eventsService: EventsService) {}
 
   @Query(() => ComponentResponse, { name: 'getEventPageComponents' })
-  async getEventPageComponents(
-    @Args('eventId') eventId: string
-  ): Promise<ComponentResponse> {
+  async getEventPageComponents(@Args('eventId') eventId: string): Promise<ComponentResponse> {
     return this.eventsService.getEventPageComponents(eventId);
   }
 }
