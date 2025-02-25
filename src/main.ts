@@ -8,7 +8,7 @@ async function bootstrap() {
   // cors 허용
 
   app.enableCors({
-    origin:  ['https://studio.apollographql.com'], // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
+    origin: ['https://studio.apollographql.com'], // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
     credentials: true, // 쿠키, 인증 헤더 등을 사용여부
     exposedHeaders: ['Authorization'], // * 사용할 헤더 추가.
   });
@@ -19,7 +19,7 @@ async function bootstrap() {
   const schema: GraphQLSchema = gqlSchemaHost.schema;
 
   // 스키마 정보 출력 (예: 콘솔 로그로 확인)
-  console.log('Generated GraphQL Schema:', schema);
+  // console.log('Generated GraphQL Schema:', schema);
 }
 
 bootstrap();

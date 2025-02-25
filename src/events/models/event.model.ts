@@ -53,10 +53,10 @@ export class ImageComponent {
   textAlign?: string;
 
   @Field({ nullable: true })
-  width?: string | number;
+  width?: string;
 
   @Field({ nullable: true })
-  height?: number;
+  height?: string;
 }
 
 @ObjectType()
@@ -83,7 +83,7 @@ export class FloatingButtonComponent {
   width?: string;
 
   @Field({ nullable: true })
-  height?: number;
+  height?: string;
 
   @Field({ nullable: true })
   fontSize?: number;
@@ -161,7 +161,7 @@ export class ButtonComponent {
   width?: string;
 
   @Field({ nullable: true })
-  height?: number;
+  height?: string;
 
   @Field({ nullable: true })
   fontSize?: number;
