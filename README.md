@@ -1,43 +1,6 @@
 # Database Structure Options
 
-이벤트 페이지를 구성하는 방식에는 **정규화 테이블 구조**와 **페이지 전체를 하나의 테이블로 저장하는 방식** 두 가지가 있다. 각각의 설계 방식과 장단점을 비교.
-
-## 1. 정규화 테이블 구조
-
-이 방식에서는 **이벤트 정보**와 **캐러셀 정보**를 별도로 저장한다.
-
-#### Events Table
-
-| Column Name | Data Type                           | Description         |
-| ----------- | ----------------------------------- | ------------------- |
-| id          | SERIAL PRIMARY KEY                  | 이벤트 ID (기본 키) |
-| title       | VARCHAR(255) NOT NULL               | 이벤트 제목         |
-| description | TEXT                                | 이벤트 설명         |
-| start_date  | TIMESTAMP NOT NULL                  | 이벤트 시작일       |
-| end_date    | TIMESTAMP NOT NULL                  | 이벤트 종료일       |
-| created_at  | TIMESTAMP DEFAULT CURRENT_TIMESTAMP | 생성 일자           |
-
-#### Carousels Table
-
-| Column Name | Data Type                                   | Description         |
-| ----------- | ------------------------------------------- | ------------------- |
-| id          | SERIAL PRIMARY KEY                          | 캐러셀 ID (기본 키) |
-| event_id    | INT REFERENCES events(id) ON DELETE CASCADE | 연관된 이벤트 ID    |
-| image_url   | VARCHAR(255) NOT NULL                       | 캐러셀 이미지 URL   |
-| order       | INT NOT NULL                                | 캐러셀 순서         |
-
-#### ✅ 장점
-
-- **데이터 재사용 가능** → 같은 캐러셀을 여러 이벤트에서 활용 가능
-- **유지보수 용이** → 개별 섹션별로 수정 가능
-- **데이터 정규화** → 중복 데이터 최소화
-
-#### ❌ 단점
-
-- **복잡한 쿼리** → 여러 테이블을 조인해야 함
-- **페이지 로드 성능** → 여러 개의 테이블을 불러와야 해서 성능 저하 가능
-
-## 2. 페이지 전체를 하나의 테이블로 저장하는 방식
+## 1. 페이지 전체를 하나의 테이블로 저장하는 방식
 
 이 방식에서는 이벤트 페이지 데이터를 JSON으로 통째로 저장한다.
 
