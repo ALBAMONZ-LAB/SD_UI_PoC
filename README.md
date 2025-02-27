@@ -1,10 +1,9 @@
 # Database Structure Options
 
-## 1. 페이지 전체를 하나의 테이블로 저장하는 방식
-
+## Event Pages Table
 이 방식에서는 이벤트 페이지 데이터를 JSON으로 통째로 저장한다.
 
-#### Event Pages Table
+### Table Schema
 
 | Column Name | Data Type                                          | Description         |
 | ----------- | -------------------------------------------------- | ------------------- |
@@ -34,6 +33,23 @@
   }
 }
 ```
+
+## Event page history
+이 테이블은 이벤트 페이지 데이터가 변경될 때마다 해당 변경 이력을 저장합니다.
+
+| Column Name | Data Type                                          | Description         |
+| ----------- | -------------------------------------------------- | ------------------- |
+| id          | SERIAL PRIMARY KEY                                 | 이력 ID (기본 키) |
+| event_page_id|	INT REFERENCES event_pages(id) ON DELETE CASCADE	| 연관된 이벤트 페이지 ID
+| previous_page_json|	JSONB NOT NULL |	변경되기 전의 페이지 데이터
+| changed_page_json |	JSONB NOT NULL |	변경된 후의 페이지 데이터
+| change_reason |	TEXT |	변경 사유 (선택 사항)
+| changed_by |	VARCHAR(100) |	변경한 사용자
+| changed_at |	TIMESTAMP DEFAULT CURRENT_TIMESTAMP |	변경 일자
+
+
+
+
 
 #### ✅ 장점
 
