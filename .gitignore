@@ -59,3 +59,6 @@ src/schema.gql
 
 # npm package-lock
 package-lock.json
+
+# 환경변수 파일
+.env
