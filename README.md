@@ -39,7 +39,7 @@
   pnpm start:dev
   ```
 
-### (option) TypeORM 사용
+### 5.(option) TypeORM 사용
 ```
 pnpm add @nestjs/typeorm typeorm pg
 ```
