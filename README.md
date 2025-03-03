@@ -13,7 +13,7 @@
 
 - **pgAdmin, DBeaver 등 데이터베이스 관리 도구**를 사용하여 데이터베이스 생성
 - 데이터베이스 이름(DB Name), 사용자 이름(Username), 설치시 비밀번호(Password)는 각자 환경에 맞게 설정
-
+- 데이터베이스 이름(DB Name) : event_pages / event_history
 ### 3. `.env` 파일 설정
 
 - 프로젝트 루트 디렉토리에 `.env` 파일을 생성하고 아래 내용을 추가:
@@ -41,7 +41,7 @@
 
 <br />
 
-## Event Pages Table
+## Event Page
 
 이 방식에서는 이벤트 페이지 데이터를 JSON으로 통째로 저장한다.
 
@@ -76,7 +76,7 @@
 }
 ```
 
-## Event page history
+## Event history
 
 이 테이블은 이벤트 페이지 데이터가 변경될 때마다 해당 변경 이력을 저장합니다.
 
