@@ -14,6 +14,7 @@
 - **pgAdmin, DBeaver 등 데이터베이스 관리 도구**를 사용하여 데이터베이스 생성
 - 데이터베이스 이름(DB Name), 사용자 이름(Username), 설치시 비밀번호(Password)는 각자 환경에 맞게 설정
 - 데이터베이스 이름(DB Name) : event_pages / event_history
+
 ### 3. `.env` 파일 설정
 
 - 프로젝트 루트 디렉토리에 `.env` 파일을 생성하고 아래 내용을 추가:
@@ -38,6 +39,40 @@
   pnpm install
   pnpm start:dev
   ```
+
+### 5. DB 로컬 마이그레이션 진행 플로우
+
+4번까지 완료 되었을 경우 진행.
+
+1. **엔티티 파일 변경 확인**
+
+   - `src/*/entity.ts` 폴더에서 변경된 엔티티 파일 확인
+   - 새로운 엔티티가 추가되었거나 기존 엔티티가 수정되었는지 확인
+   - **실제론 dist 디렉토리 밑 엔티티 파일로 마이그레이션 파일 생성**
+
+2. **마이그레이션 스크립트 실행**
+
+   ```bash
+   npm migrations:generate
+   ```
+
+   또는
+
+   ```bash
+   pnpm migrations:generate
+
+   ```
+
+3. **마이그레이션 파일 자동생성**
+
+   - `src/migrations` 폴더에 새로운 마이그레이션 파일이 생성됨 (없을 경우 자동생성)
+   - `src/migrations/0000-InitDatabase.ts` 마이그레이션 파일 자동추가 (엔티티 변경될 경우 이전 버전 삭제 후 자동 생성)
+
+4. **마이그레이션 적용 (DB 반영)**
+   - 데이터베이스에 테이블이 생성 및 업데이트됨
+   - pgAdmin, DBeaver 등을 이용하여 테이블 정상 생성 확인
+
+**✅ 작업이완료 되면 DB Table 확인. (entity에 맞게 테이블이 생성됨)**
 
 <br />
 

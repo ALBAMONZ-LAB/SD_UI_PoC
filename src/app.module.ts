@@ -7,7 +7,6 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CardsModule } from './cards/cards.module';
-import { AppDataSource } from './data-source';
 import { EventHistoryModule } from './event-history/event-history.module';
 import { EventsModule } from './events/events.module';
 
@@ -22,7 +21,18 @@ import { EventsModule } from './events/events.module';
       sortSchema: true,
       playground: true,
     }),
-    TypeOrmModule.forRoot(AppDataSource.options), // data-source.ts에서 TypeORM 설정 불러옴
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT as string, 5432),
+      username: process.env.DB_USERNAME,
+      password: String(process.env.DB_PASSWORD),
+      database: process.env.DB_NAME,
+      entities: ['dist/**/*.entity.js'],
+      migrations: ['dist/migrations/*.js'],
+      synchronize: false,
+      migrationsTableName: 'migrations',
+    }),
     CardsModule,
     EventsModule,
     EventHistoryModule,
