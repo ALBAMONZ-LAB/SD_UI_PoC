@@ -9,7 +9,6 @@ const migrationsDir = 'src/migrations';
 if (!fs.existsSync(migrationsDir)) {
   fs.mkdirSync(migrationsDir);
 }
-
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -17,8 +16,8 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: String(process.env.DB_PASSWORD),
   database: process.env.DB_NAME,
-  entities: ['src/entities/*.ts'],
-  migrations: ['src/migrations/*.ts'],
+  entities: ['dist/**/*.entity.js'],
+  migrations: ['dist/migrations/*.js'],
   synchronize: false,
   migrationsTableName: 'migrations',
 });
