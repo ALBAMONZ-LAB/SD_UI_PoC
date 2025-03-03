@@ -62,3 +62,6 @@ package-lock.json
 
 # 환경변수 파일
 .env
+
+# db migrations
+src/migrations/*.ts

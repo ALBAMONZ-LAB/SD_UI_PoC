@@ -7,6 +7,9 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CardsModule } from './cards/cards.module';
+import { AppDataSource } from './data-source';
+import { EventPage } from './entities/eventPage.entity';
+import { EventPageHistory } from './entities/eventPageHistory.entity';
 import { EventsModule } from './events/events.module';
 
 @Module({
@@ -20,16 +23,8 @@ import { EventsModule } from './events/events.module';
       sortSchema: true,
       playground: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres', // 사용할 DB
-      host: 'localhost', // DB 주소 (poc local)
-      port: 5432, // PostgreSQL 기본포트
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      autoLoadEntities: true, // 자동으로 엔티티 로드
-      synchronize: true, // 개발 환경에서만 true (운영 환경에서는 false)
-    }),
+    TypeOrmModule.forRoot(AppDataSource.options), // data-source.ts에서 TypeORM 설정 불러옴
+    TypeOrmModule.forFeature([EventPage, EventPageHistory]), // 엔티티 추가
     CardsModule,
     EventsModule,
   ],
