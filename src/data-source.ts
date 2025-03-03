@@ -8,7 +8,17 @@ dotenv.config(); // TypeORM CLI(typeorm migration:generate)는 NestJS 애플리�
 const migrationsDir = 'src/migrations';
 if (!fs.existsSync(migrationsDir)) {
   fs.mkdirSync(migrationsDir);
+} else {
+  // `migrations` 폴더에 기존 파일이 있으면 모두 삭제
+  const files = fs.readdirSync(migrationsDir);
+  files.forEach(file => {
+    const filePath = `${migrationsDir}/${file}`;
+    if (fs.statSync(filePath).isFile()) {
+      fs.unlinkSync(filePath); // 파일 삭제
+    }
+  });
 }
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST,

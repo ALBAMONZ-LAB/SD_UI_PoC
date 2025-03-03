@@ -8,8 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CardsModule } from './cards/cards.module';
 import { AppDataSource } from './data-source';
-import { EventPage } from './entities/eventPage.entity';
-import { EventPageHistory } from './entities/eventPageHistory.entity';
+import { EventHistoryModule } from './event-history/event-history.module';
 import { EventsModule } from './events/events.module';
 
 @Module({
@@ -24,9 +23,9 @@ import { EventsModule } from './events/events.module';
       playground: true,
     }),
     TypeOrmModule.forRoot(AppDataSource.options), // data-source.ts에서 TypeORM 설정 불러옴
-    TypeOrmModule.forFeature([EventPage, EventPageHistory]), // 엔티티 추가
     CardsModule,
     EventsModule,
+    EventHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
