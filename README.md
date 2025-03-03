@@ -13,7 +13,7 @@
 
 - **pgAdmin, DBeaver 등 데이터베이스 관리 도구**를 사용하여 데이터베이스 생성
 - 데이터베이스 이름(DB Name), 사용자 이름(Username), 설치시 비밀번호(Password)는 각자 환경에 맞게 설정
-- 데이터베이스 이름(DB Name) : EVENT_PAGE / EVENT_HISTORY 
+- 데이터베이스 이름(DB Name) : EVENT_PAGES / EVENT_HISTORY 
 
 ### 3. `.env` 파일 설정
 
