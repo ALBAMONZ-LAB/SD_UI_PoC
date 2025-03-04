@@ -4,7 +4,7 @@ import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPage } from './events.entity';
 import { EventPageService } from './events.service';
 
-@Resolver(() => EventPage) // 🔹 EventPage 엔티티를 위한 리졸버
+@Resolver(() => EventPage)
 export class EventPageResolver {
   constructor(private readonly eventPageService: EventPageService) {}
 
