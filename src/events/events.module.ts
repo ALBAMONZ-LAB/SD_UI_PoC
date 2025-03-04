@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventPage } from './events.entity';
-import { EventsResolver } from './events.resolver';
-import { EventsService } from './events.service';
+import { EventPageResolver } from './events.resolver';
+import { EventPageService } from './events.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([EventPage]), // 엔티티 추가
   ],
-  providers: [EventsResolver, EventsService],
+  providers: [EventPageResolver, EventPageService],
 })
 export class EventsModule {}
