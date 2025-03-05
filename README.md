@@ -48,17 +48,20 @@
 
    - `src/*/entity.ts` 엔티티 파일 추가 및 변경
    - `migration:generate`스크립트를 실행하면 새로운 엔티티가 추가되었거나 기존 엔티티가 수정되었는지 확인(package.json에 스크립트 한번에 추가해둠)
+   - `migration:run` 마이그레이션 실행 (DB에 테이블 생성)
 
 2. **마이그레이션 스크립트 실행**
 
    ```bash
    npm migrations:generate
+   npm run migrations:run 
    ```
 
    또는
 
    ```bash
    pnpm migrations:generate
+   pnpm run migrations:run
 
    ```
 
