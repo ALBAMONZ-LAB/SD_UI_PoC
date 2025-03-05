@@ -189,50 +189,34 @@ $ pnpm run start:prod
 
 You can test these queries in a GraphQL playground.
 
+### 특정 이벤트 페이지 조회
+
 ```
 query {
-  getCards {
-    resultCode
-    resultMessage
-    totalCount
-    row
-    column
-    collection {
-      franchiseCode
-      franchiseName
-      franchiseLogo
-      keywordCode
-      keywordName
-      partCode
-      partName
-    }
+  getEventPageComponents(eventId: 2) {
+    id
+    eventId
+    pageJson
+    createdAt
   }
 }
-
 ```
 
+### 이벤트 추가
+
 ```
-query {
-  getEventPageComponents(eventId: "event-123") {
-    resultCode
-    resultMessage
-    eventId
-    components {
-      ... on TitleComponent {
-        type
-        text
-        fontSize
-        fontWeight
-        color
-      }
-      ... on FloatingButtonComponent {
-        type
-        text
-        backgroundColor
-        textColor
-        bottom
-        onClick
-      }
+mutation {
+  createEventPage(createEventPageInput: {
+    eventId: 5,
+    pageJson: "{ \"title\": \"New Event5\", \"content\": \"This is a new event page5.\" }"
+  }) {
+    success
+    message
+    data {
+      id
+      eventId
+      pageJson
+      createdAt
     }
   }
 }
