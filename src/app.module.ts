@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CardsModule } from './cards/cards.module';
 import { EventHistoryModule } from './event-history/event-history.module';
 import { EventsModule } from './events/events.module';
 
@@ -28,12 +27,12 @@ import { EventsModule } from './events/events.module';
       username: process.env.DB_USERNAME,
       password: String(process.env.DB_PASSWORD),
       database: process.env.DB_NAME,
+      ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false, 
       entities: ['dist/**/*.entity.js'],
       migrations: ['dist/migrations/*.js'],
       synchronize: false,
       migrationsTableName: 'migrations',
     }),
-    CardsModule,
     EventsModule,
     EventHistoryModule,
   ],
