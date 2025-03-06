@@ -76,7 +76,37 @@
 
 **✅ 작업이완료 되면 DB Table 확인. (entity에 맞게 테이블이 생성됨)**
 
+### 6. AWS RDS 확인하는 법
+
+1. .env 파일 수정 
+2. local terminal 에서 psql 사용하여 AWS RDS 직접 접속 가능
+```
+psql --host=endpoint --port=5432 --dbname=postgres --username=postgres
+```
+3. 터미널에서 데이터 조회 가능
+```
+\l   -- 데이터베이스 목록 확인
+\c event-page   -- 해당 데이터베이스 선택
+\dt   -- 테이블 목록 확인
+SELECT * FROM event_pages;   -- 데이터 조회
+```
+
+4. 혹은 graphQL query로 조회 가능
+```
+query {
+  getEventPageComponents(eventId: 1) {
+    id
+    eventId
+    pageJson
+    createdAt
+  }
+}
+```
+
+
+
 <br />
+
 
 ## Event Page
 
