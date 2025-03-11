@@ -8,7 +8,7 @@ async function bootstrap() {
   // cors 허용
 
   app.enableCors({
-    origin: ['https://studio.apollographql.com'], // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
+    origin: true, // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
     credentials: true, // 쿠키, 인증 헤더 등을 사용여부
     exposedHeaders: ['Authorization'], // * 사용할 헤더 추가.
   });
