@@ -8,9 +8,12 @@ async function bootstrap() {
   // cors 허용
 
   app.enableCors({
-    origin: true, // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
+    origin: '*', // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // 쿠키, 인증 헤더 등을 사용여부
-    exposedHeaders: ['Authorization'], // * 사용할 헤더 추가.
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
 
   await app.listen(process.env.PORT ?? 3000);
