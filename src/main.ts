@@ -22,7 +22,7 @@ async function bootstrap() {
   const schema: GraphQLSchema = gqlSchemaHost.schema;
 
   // 스키마 정보 출력 (예: 콘솔 로그로 확인)
-  console.log('Generated GraphQL Schema:', schema);
+  // console.log('Generated GraphQL Schema:', schema);
 }
 
 bootstrap();
