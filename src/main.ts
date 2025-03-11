@@ -16,7 +16,7 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   });
 
-  await app.listen(process.env.PORT ?? 8000);
+  await app.listen(process.env.PORT ?? 3000);
   // GraphQL Schema 가져오기
   const gqlSchemaHost = app.get(GraphQLSchemaHost);
   const schema: GraphQLSchema = gqlSchemaHost.schema;
