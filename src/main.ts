@@ -16,13 +16,13 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   });
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 8000);
   // GraphQL Schema 가져오기
   const gqlSchemaHost = app.get(GraphQLSchemaHost);
   const schema: GraphQLSchema = gqlSchemaHost.schema;
 
   // 스키마 정보 출력 (예: 콘솔 로그로 확인)
-  // console.log('Generated GraphQL Schema:', schema);
+  console.log('Generated GraphQL Schema:', schema);
 }
 
 bootstrap();
