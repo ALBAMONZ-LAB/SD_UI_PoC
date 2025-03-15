@@ -27,10 +27,11 @@ export class EventPageService {
 
   // 페이지네이션 적용하여 이벤트 ID 목록 가져오기
   async getPaginatedEventPageIds(pageIndex: number, pageRow: number): Promise<EventPageIdTitle[]> {
+    const adjustedPageIndex = Math.max(0, pageIndex - 1);
     const eventPages = await this.eventPageRepository.find({
       select: ['eventId', 'eventTitle', 'createdAt'],
       order: { createdAt: 'DESC' },
-      skip: pageIndex * pageRow,
+      skip: adjustedPageIndex * pageRow,
       take: pageRow,
     });
 
