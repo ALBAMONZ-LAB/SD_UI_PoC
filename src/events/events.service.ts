@@ -25,6 +25,22 @@ export class EventPageService {
     }));
   }
 
+  // 페이지네이션 적용하여 이벤트 ID 목록 가져오기
+  async getPaginatedEventPageIds(pageIndex: number, pageRow: number): Promise<EventPageIdTitle[]> {
+    const eventPages = await this.eventPageRepository.find({
+      select: ['eventId', 'eventTitle', 'createdAt'],
+      order: { createdAt: 'DESC' },
+      skip: pageIndex * pageRow,
+      take: pageRow,
+    });
+
+    return eventPages.map(page => ({
+      eventId: page.eventId,
+      eventTitle: page.eventTitle,
+      createdAt: page.createdAt,
+    }));
+  }
+
   // 특정 이벤트 페이지 조회 (Query)
   async getEventPageComponents(eventId: number): Promise<EventPage> {
     const eventPage = await this.eventPageRepository.findOne({ where: { eventId } });

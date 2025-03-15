@@ -7,10 +7,19 @@ import { EventPageService } from './events.service';
 @Resolver(() => EventPage)
 export class EventPageResolver {
   constructor(private readonly eventPageService: EventPageService) {}
-  /** 모든 이벤트 Id 조회(event history selectBox 사용예정) */
+  /** 모든 이벤트 Id 조회 */
   @Query(() => [EventPageIdTitle])
   async getEventPageIds(): Promise<EventPageIdTitle[]> {
     return this.eventPageService.getEventPageIds();
+  }
+
+  /** 페이지네이션이 필요한 경우 이벤트 ID 목록 조회 */
+  @Query(() => [EventPageIdTitle], { name: 'getPaginatedEventPageIds' })
+  async getPaginatedEventPageIds(
+    @Args('pageIndex', { type: () => Int }) pageIndex: number,
+    @Args('pageRow', { type: () => Int }) pageRow: number,
+  ): Promise<EventPageIdTitle[]> {
+    return this.eventPageService.getPaginatedEventPageIds(pageIndex, pageRow);
   }
 
   /**
