@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
-import { EventPage } from './events.entity';
+import { EventPage, EventPageIdTitle } from './events.entity';
 
 @Injectable()
 export class EventPageService {
@@ -12,13 +12,16 @@ export class EventPageService {
     private readonly eventPageRepository: Repository<EventPage>,
   ) {}
 
-  // 모든 이벤트 페이지의 ID 가져오기 TODO title 추가
-  async getEventPageIds(): Promise<number[]> {
+  // 모든 이벤트 페이지의 ID 가져오기
+  async getEventPageIds(): Promise<EventPageIdTitle[]> {
     const eventPages = await this.eventPageRepository.find({
-      select: ['eventId'],
+      select: ['eventId', 'eventTitle'],
     });
 
-    return eventPages.map(page => page.eventId);
+    return eventPages.map(page => ({
+      eventId: page.eventId,
+      eventTitle: page.eventTitle,
+    }));
   }
 
   // 특정 이벤트 페이지 조회 (Query)

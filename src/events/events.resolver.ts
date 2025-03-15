@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver, Int } from '@nestjs/graphql';
 import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
-import { EventPage } from './events.entity';
+import { EventPage, EventPageIdTitle } from './events.entity';
 import { EventPageService } from './events.service';
 
 @Resolver(() => EventPage)
@@ -9,8 +9,8 @@ export class EventPageResolver {
   constructor(private readonly eventPageService: EventPageService) {}
 
   /** 모든 이벤트 Id 조회 */
-  @Query(() => [Int]) // GraphQL에서 배열(Int[])로 반환
-  async getEventPageIds(): Promise<number[]> {
+  @Query(() => [EventPageIdTitle])
+  async getEventPageIds(): Promise<EventPageIdTitle[]> {
     return this.eventPageService.getEventPageIds();
   }
 

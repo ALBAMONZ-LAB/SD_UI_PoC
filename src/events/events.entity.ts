@@ -13,6 +13,10 @@ export class EventPage {
   @Column({ type: 'int', unique: true })
   eventId: number;
 
+  @Field()
+  @Column({ type: 'varchar', length: 255 })
+  eventTitle: string;
+
   @Field(() => GraphQLJSON) // JSON은 GraphQL에서 String으로 변환해야 함
   @Column({ type: 'jsonb', nullable: false })
   pageJson: object;
@@ -20,4 +24,13 @@ export class EventPage {
   @Field()
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+}
+
+@ObjectType()
+export class EventPageIdTitle {
+  @Field()
+  eventId: number;
+
+  @Field()
+  eventTitle: string;
 }
