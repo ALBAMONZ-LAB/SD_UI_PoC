@@ -1,5 +1,9 @@
 # Database Structure Options
 
+## API Schema 확인 방법
+
+api_base_url:3000/api 에서 추가된 스키마 확인이 가능합니다.
+
 ## 로컬 개발 환경 설정
 
 - 이 프로젝트는 **PostgreSQL 16.8**을 사용합니다.
@@ -54,7 +58,7 @@
 
    ```bash
    npm migrations:generate
-   npm run migrations:run 
+   npm run migrations:run
    ```
 
    또는
@@ -78,12 +82,15 @@
 
 ### 6. AWS RDS 확인하는 법
 
-1. .env 파일 수정 
+1. .env 파일 수정
 2. local terminal 에서 psql 사용하여 AWS RDS 직접 접속 가능
+
 ```
 psql --host=endpoint --port=5432 --dbname=postgres --username=postgres
 ```
+
 3. 터미널에서 데이터 조회 가능
+
 ```
 \l   -- 데이터베이스 목록 확인
 \c event-page   -- 해당 데이터베이스 선택
@@ -92,6 +99,7 @@ SELECT * FROM event_pages;   -- 데이터 조회
 ```
 
 4. 혹은 graphQL query로 조회 가능
+
 ```
 query {
   getEventPageComponents(eventId: 1) {
@@ -103,10 +111,7 @@ query {
 }
 ```
 
-
-
 <br />
-
 
 ## Event Page
 
