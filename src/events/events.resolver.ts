@@ -1,4 +1,5 @@
 import { Args, Mutation, Query, Resolver, Int } from '@nestjs/graphql';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPage, EventPageIdTitle } from './events.entity';

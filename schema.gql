@@ -1,0 +1,68 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateEventHistoryInput {
+  changeReason: String!
+  changedBy: String!
+  changedPageJson: String!
+  eventPageId: Float!
+  previousPageJson: String!
+}
+
+input CreateEventPageInput {
+  eventId: Float!
+  pageJson: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type EventHistory {
+  changeReason: String!
+  changedAt: DateTime!
+  changedBy: String!
+  changedPageJson: JSON!
+  eventPage: EventPage!
+  id: ID!
+  previousPageJson: JSON!
+}
+
+type EventPage {
+  createdAt: DateTime!
+  eventId: Float!
+  eventTitle: String!
+  id: ID!
+  pageJson: JSON!
+}
+
+type EventPageIdTitle {
+  createdAt: DateTime!
+  eventId: Float!
+  eventTitle: String!
+}
+
+type EventPageResponse {
+  data: EventPage
+  message: String!
+  success: Boolean!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Mutation {
+  createEventHistory(createEventHistoryInput: CreateEventHistoryInput!): EventHistory!
+  createEventPage(createEventPageInput: CreateEventPageInput!): EventPageResponse!
+}
+
+type Query {
+  getEventHistory(eventPageId: Float!): [EventHistory!]!
+  getEventPageComponents(eventId: Float!): EventPage
+  getEventPageIds: [EventPageIdTitle!]!
+  getPaginatedEventPageIds(pageIndex: Int!, pageRow: Int!): [EventPageIdTitle!]!
+}
