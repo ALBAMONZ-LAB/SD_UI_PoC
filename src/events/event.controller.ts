@@ -11,14 +11,14 @@ export class EventPageController {
   constructor(private readonly eventPageService: EventPageService) {}
 
   @Get('ids')
-  @ApiOperation({ summary: '모든 이벤트 페이지 ID 조회 (REST)', description: '이벤트 페이지의 ID 목록을 가져옵니다.' })
+  @ApiOperation({ summary: '모든 이벤트 페이지 ID 조회', description: '이벤트 페이지의 ID 목록을 가져옵니다.' })
   async getEventPageIds(): Promise<EventPageIdTitle[]> {
     return this.eventPageService.getEventPageIds();
   }
 
   @Get('paginated')
   @ApiOperation({
-    summary: '페이징된 이벤트 페이지 ID 조회 (REST)',
+    summary: '페이징된 이벤트 페이지 ID 조회',
     description: 'pageIndex와 pageRow를 사용하여 페이징된 데이터를 가져옵니다.',
   })
   async getPaginatedEventPageIds(
@@ -29,7 +29,7 @@ export class EventPageController {
   }
 
   @Post('create')
-  @ApiOperation({ summary: '이벤트 페이지 생성 (REST)', description: '이벤트 페이지 데이터를 생성합니다.' })
+  @ApiOperation({ summary: '이벤트 페이지 생성', description: '이벤트 페이지 데이터를 생성합니다.' })
   @ApiBody({ type: CreateEventPageInput })
   async createEventPage(@Body() createEventPageInput: CreateEventPageInput): Promise<EventPageResponse> {
     return this.eventPageService.create(createEventPageInput);
