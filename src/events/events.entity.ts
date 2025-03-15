@@ -33,4 +33,7 @@ export class EventPageIdTitle {
 
   @Field()
   eventTitle: string;
+
+  @Field()
+  createdAt: Date;
 }

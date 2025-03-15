@@ -15,12 +15,13 @@ export class EventPageService {
   // 모든 이벤트 페이지의 ID 가져오기
   async getEventPageIds(): Promise<EventPageIdTitle[]> {
     const eventPages = await this.eventPageRepository.find({
-      select: ['eventId', 'eventTitle'],
+      select: ['eventId', 'eventTitle', 'createdAt'],
     });
 
     return eventPages.map(page => ({
       eventId: page.eventId,
       eventTitle: page.eventTitle,
+      createdAt: page.createdAt,
     }));
   }
 

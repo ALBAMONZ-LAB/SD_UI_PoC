@@ -7,8 +7,7 @@ import { EventPageService } from './events.service';
 @Resolver(() => EventPage)
 export class EventPageResolver {
   constructor(private readonly eventPageService: EventPageService) {}
-
-  /** 모든 이벤트 Id 조회 */
+  /** 모든 이벤트 Id 조회(event history selectBox 사용예정) */
   @Query(() => [EventPageIdTitle])
   async getEventPageIds(): Promise<EventPageIdTitle[]> {
     return this.eventPageService.getEventPageIds();
