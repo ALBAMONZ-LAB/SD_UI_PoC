@@ -8,7 +8,7 @@ export class EventHistoryResolver {
   constructor(private readonly eventHistoryService: EventHistoryService) {}
 
   /** event history Query */
-  @Query(() => [EventHistory]) // ✅ 단일 객체 → 리스트로 변경
+  @Query(() => [EventHistory])
   async getEventHistory(@Args('eventPageId') eventPageId: number): Promise<EventHistory[]> {
     return this.eventHistoryService.getEventHistory(eventPageId);
   }

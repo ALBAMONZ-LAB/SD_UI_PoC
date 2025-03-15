@@ -27,7 +27,7 @@ import { EventsModule } from './events/events.module';
       username: process.env.DB_USERNAME,
       password: String(process.env.DB_PASSWORD),
       database: process.env.DB_NAME,
-      ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false, 
+      ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
       entities: ['dist/**/*.entity.js'],
       migrations: ['dist/migrations/*.js'],
       synchronize: false,

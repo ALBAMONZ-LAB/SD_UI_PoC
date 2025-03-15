@@ -15,7 +15,7 @@ export class EventHistoryService {
     private readonly eventPageRepository: Repository<EventPage>,
   ) {}
 
-  // get event history data
+  // get eventPageId's history data
   async getEventHistory(eventPageId: number): Promise<EventHistory[]> {
     const histories = await this.eventHistoryRepository.find({
       where: { eventPage: { id: eventPageId } },
@@ -29,6 +29,7 @@ export class EventHistoryService {
 
     return histories;
   }
+
   // save event history data
   async createEventHistory(input: CreateEventHistoryInput): Promise<EventHistory> {
     const eventPage = await this.eventPageRepository.findOne({ where: { id: input.eventPageId } });

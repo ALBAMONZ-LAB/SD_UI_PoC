@@ -12,6 +12,15 @@ export class EventPageService {
     private readonly eventPageRepository: Repository<EventPage>,
   ) {}
 
+  // 모든 이벤트 페이지의 ID 가져오기 TODO title 추가
+  async getEventPageIds(): Promise<number[]> {
+    const eventPages = await this.eventPageRepository.find({
+      select: ['eventId'],
+    });
+
+    return eventPages.map(page => page.eventId);
+  }
+
   // 특정 이벤트 페이지 조회 (Query)
   async getEventPageComponents(eventId: number): Promise<EventPage> {
     const eventPage = await this.eventPageRepository.findOne({ where: { eventId } });
