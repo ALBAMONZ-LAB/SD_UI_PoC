@@ -3,9 +3,17 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { GraphQLSchemaHost } from '@nestjs/graphql';
 import { GraphQLSchema } from 'graphql';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Event API')
@@ -15,7 +23,7 @@ async function bootstrap() {
     .build();
 
   app.enableCors({
-    origin: '*', // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://3.36.185.81'], // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

@@ -4,6 +4,7 @@ import { EventPageService } from './events.service';
 import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPageIdTitle } from './events.entity';
+import { PaginationQueryDto } from './dto/event-pages-query.dto';
 
 @ApiTags('Event Page') // Swagger에서 REST API 문서화
 @Controller('event-pages') // REST API 엔드포인트 추가
@@ -17,10 +18,8 @@ export class EventPageController {
   })
   @ApiQuery({ name: 'pageIndex', required: true, type: Number, description: '페이지 번호' })
   @ApiQuery({ name: 'pageRow', required: true, type: Number, description: '한 페이지당 보여줄 행 수' })
-  async getPaginatedEventPageIds(
-    @Query('pageIndex') pageIndex: number,
-    @Query('pageRow') pageRow: number,
-  ): Promise<EventPageIdTitle[]> {
+  async getPaginatedEventPageIds(@Query() query: PaginationQueryDto): Promise<EventPageIdTitle[]> {
+    const { pageIndex, pageRow } = query;
     return this.eventPageService.getPaginatedEventPageIds(pageIndex, pageRow);
   }
 
