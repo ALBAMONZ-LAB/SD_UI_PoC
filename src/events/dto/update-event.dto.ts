@@ -1,11 +1,12 @@
-// dto/update-event-page.input.ts
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsInt } from 'class-validator';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
+@InputType()
 export class UpdateEventPageInput {
-  @IsString()
+  @Field(() => Int)
+  @IsInt()
   eventId: number;
 
-  @IsOptional()
   @IsString()
   pageJson: string;
 }

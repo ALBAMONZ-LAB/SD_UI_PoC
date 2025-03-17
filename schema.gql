@@ -58,6 +58,7 @@ scalar JSON
 type Mutation {
   createEventHistory(createEventHistoryInput: CreateEventHistoryInput!): EventHistory!
   createEventPage(createEventPageInput: CreateEventPageInput!): EventPageResponse!
+  updateEventPage(updateEventPageInput: UpdateEventPageInput!): EventPageResponse!
 }
 
 type Query {
@@ -65,4 +66,8 @@ type Query {
   getEventPageComponents(eventId: Float!): EventPage
   getEventPageIds: [EventPageIdTitle!]!
   getPaginatedEventPageIds(pageIndex: Int!, pageRow: Int!): [EventPageIdTitle!]!
+}
+
+input UpdateEventPageInput {
+  eventId: Int!
 }
