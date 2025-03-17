@@ -83,10 +83,12 @@ export class EventPageService {
       };
     }
 
+    const parsedPageJson: Record<string, any> = JSON.parse(pageJson);
+
     const updated = await this.eventPageRepository.save({
       ...existingPage,
       ...rest,
-      pageJson: JSON.parse(pageJson),
+      pageJson: parsedPageJson,
     });
 
     return {

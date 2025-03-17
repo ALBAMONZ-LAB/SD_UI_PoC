@@ -1,14 +1,14 @@
-import { Controller, Get, Post, Body, Query, Patch } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBody, ApiQuery } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Query, Patch, Param, ParseIntPipe } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBody, ApiQuery, ApiParam } from '@nestjs/swagger';
 import { EventPageService } from './events.service';
 import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
-import { EventPageIdTitle } from './events.entity';
+import { EventPage, EventPageIdTitle } from './events.entity';
 import { PaginationQueryDto } from './dto/event-pages-query.dto';
 import { UpdateEventPageInput } from './dto/update-event.dto';
 
-@ApiTags('Event Page') // Swagger에서 REST API 문서화
-@Controller('event-pages') // REST API 엔드포인트 추가
+@ApiTags('Event Page')
+@Controller('event-pages')
 export class EventPageController {
   constructor(private readonly eventPageService: EventPageService) {}
 
@@ -28,6 +28,16 @@ export class EventPageController {
   @ApiOperation({ summary: '모든 이벤트 페이지 ID 조회', description: '이벤트 페이지의 ID 목록을 가져옵니다.' })
   async getEventPageIds(): Promise<EventPageIdTitle[]> {
     return this.eventPageService.getEventPageIds();
+  }
+
+  @Get(':eventId')
+  @ApiOperation({
+    summary: '특정 이벤트 페이지 조회',
+    description: 'eventId로 특정 이벤트 페이지 데이터를 조회합니다.',
+  })
+  @ApiParam({ name: 'eventId', type: Number, description: '조회할 이벤트 페이지 ID' })
+  async getEventPage(@Param('eventId', ParseIntPipe) eventId: number): Promise<EventPage> {
+    return this.eventPageService.getEventPageComponents(eventId);
   }
 
   @Post('create')

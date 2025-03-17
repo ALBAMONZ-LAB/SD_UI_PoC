@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsInt } from 'class-validator';
+import { IsString, IsInt } from 'class-validator';
 import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
