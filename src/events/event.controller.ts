@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Patch } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { EventPageService } from './events.service';
 import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPageIdTitle } from './events.entity';
 import { PaginationQueryDto } from './dto/event-pages-query.dto';
+import { UpdateEventPageInput } from './dto/update-event.dto';
 
 @ApiTags('Event Page') // Swagger에서 REST API 문서화
 @Controller('event-pages') // REST API 엔드포인트 추가
@@ -34,5 +35,12 @@ export class EventPageController {
   @ApiBody({ type: CreateEventPageInput })
   async createEventPage(@Body() createEventPageInput: CreateEventPageInput): Promise<EventPageResponse> {
     return this.eventPageService.create(createEventPageInput);
+  }
+
+  @Patch('update')
+  @ApiOperation({ summary: '이벤트 페이지 수정', description: '기존 이벤트 페이지 데이터를 수정합니다.' })
+  @ApiBody({ type: UpdateEventPageInput })
+  async updateEventPage(@Body() updateEventPageInput: UpdateEventPageInput): Promise<EventPageResponse> {
+    return this.eventPageService.update(updateEventPageInput);
   }
 }

@@ -3,6 +3,7 @@ import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPage, EventPageIdTitle } from './events.entity';
 import { EventPageService } from './events.service';
+import { UpdateEventPageInput } from './dto/update-event.dto';
 
 @Resolver(() => EventPage)
 export class EventPageResolver {
@@ -44,5 +45,16 @@ export class EventPageResolver {
     @Args('createEventPageInput') createEventPageInput: CreateEventPageInput,
   ): Promise<EventPageResponse> {
     return this.eventPageService.create(createEventPageInput);
+  }
+
+  /** 이벤트 페이지 수정
+   * @param updateEventPageInput 클라이언트에서 받은 입력 데이터 (DTO)
+   * @returns 수정된 이벤트 페이지 데이터
+   * */
+  @Mutation(() => EventPageResponse)
+  async updateEventPage(
+    @Args('updateEventPageInput') updateEventPageInput: UpdateEventPageInput,
+  ): Promise<EventPageResponse> {
+    return this.eventPageService.update(updateEventPageInput);
   }
 }

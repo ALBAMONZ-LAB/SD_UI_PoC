@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPage, EventPageIdTitle } from './events.entity';
+import { UpdateEventPageInput } from './dto/update-event.dto';
 
 @Injectable()
 export class EventPageService {
@@ -66,6 +67,32 @@ export class EventPageService {
       success: true,
       message: 'Event page created successfully',
       data: savedEventPage,
+    };
+  }
+
+  // 이벤트 페이지 수정
+  async update(updateEventPageInput: UpdateEventPageInput): Promise<EventPageResponse> {
+    const { eventId, pageJson, ...rest } = updateEventPageInput;
+
+    // 기존 페이지 조회
+    const existingPage = await this.eventPageRepository.findOne({ where: { eventId } });
+    if (!existingPage) {
+      return {
+        success: false,
+        message: 'Event page not found',
+      };
+    }
+
+    const updated = await this.eventPageRepository.save({
+      ...existingPage,
+      ...rest,
+      pageJson: JSON.parse(pageJson),
+    });
+
+    return {
+      success: true,
+      message: 'Event page updated successfully',
+      data: updated,
     };
   }
 }
