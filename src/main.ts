@@ -23,7 +23,13 @@ async function bootstrap() {
     .build();
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://3.36.185.81'], // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://3.36.185.81',
+      'http://172.16.240.50:3000',
+      'http://172.16.240.50:3001',
+    ], // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
