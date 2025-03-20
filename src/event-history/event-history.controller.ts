@@ -11,8 +11,8 @@ export class EventHistoryController {
 
   @Get()
   @ApiOperation({ summary: '이벤트 히스토리 조회', description: '특정 eventPageId의 이벤트 변경 내역을 조회합니다.' })
-  async getEventHistory(@Query('eventPageId') eventPageId: number): Promise<EventHistory[]> {
-    return this.eventHistoryService.getEventHistory(eventPageId);
+  async getEventHistory(@Query('eventId') eventId: number): Promise<EventHistory[]> {
+    return this.eventHistoryService.getEventHistory(eventId);
   }
 
   @Post('create')
