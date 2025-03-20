@@ -5,12 +5,15 @@ import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPage, EventPageIdTitle } from './events.entity';
 import { UpdateEventPageInput } from './dto/update-event.dto';
+import { EventHistoryService } from '../event-history/event-history.service';
 
 @Injectable()
 export class EventPageService {
   constructor(
     @InjectRepository(EventPage)
     private readonly eventPageRepository: Repository<EventPage>,
+
+    private readonly eventHistoryService: EventHistoryService,
   ) {}
 
   // 모든 이벤트 페이지의 ID 가져오기
@@ -44,6 +47,7 @@ export class EventPageService {
   }
 
   // 특정 이벤트 페이지 조회 (Query)
+
   async getEventPageComponents(eventId: number): Promise<EventPage> {
     try {
       const eventPage = await this.eventPageRepository.findOne({ where: { eventId } });
@@ -81,7 +85,17 @@ export class EventPageService {
       pageJson: parsedJson,
     });
 
+    // create new event page
     const savedEventPage = await this.eventPageRepository.save(newEventPage);
+
+    // create event history data automatically
+    await this.eventHistoryService.saveEventHistory({
+      eventPage: newEventPage,
+      previousPageJson: {},
+      changedPageJson: parsedJson,
+      changeReason: 'initial create',
+      changedBy: 'system',
+    });
 
     return {
       success: true,
@@ -91,7 +105,11 @@ export class EventPageService {
   }
 
   // 이벤트 페이지 수정
-  async update(updateEventPageInput: UpdateEventPageInput): Promise<EventPageResponse> {
+  async update(
+    updateEventPageInput: UpdateEventPageInput,
+    changeReason?: string,
+    changedBy?: string,
+  ): Promise<EventPageResponse> {
     const { eventId, pageJson, ...rest } = updateEventPageInput;
 
     // 기존 페이지 조회
@@ -104,11 +122,22 @@ export class EventPageService {
     }
 
     const parsedPageJson: Record<string, any> = JSON.parse(pageJson);
+    const previousJson = existingPage.pageJson;
 
+    // update event page data
     const updated = await this.eventPageRepository.save({
       ...existingPage,
       ...rest,
       pageJson: parsedPageJson,
+    });
+
+    // update event history data automatically
+    await this.eventHistoryService.saveEventHistory({
+      eventPage: updated,
+      previousPageJson: previousJson,
+      changedPageJson: parsedPageJson,
+      changeReason: changeReason || '-',
+      changedBy: changedBy || '-',
     });
 
     return {

@@ -6,7 +6,7 @@ input CreateEventHistoryInput {
   changeReason: String!
   changedBy: String!
   changedPageJson: String!
-  eventPageId: Float!
+  eventId: Float!
   previousPageJson: String!
 }
 
