@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateEventPageInput } from './dto/create-event.dto';
@@ -45,20 +45,40 @@ export class EventPageService {
 
   // 특정 이벤트 페이지 조회 (Query)
   async getEventPageComponents(eventId: number): Promise<EventPage> {
-    const eventPage = await this.eventPageRepository.findOne({ where: { eventId } });
+    try {
+      const eventPage = await this.eventPageRepository.findOne({ where: { eventId } });
 
-    if (!eventPage) {
-      throw new NotFoundException(`Event Page with eventId ${eventId} not found`);
+      if (!eventPage) {
+        throw new NotFoundException(`Event Page with eventId ${eventId} not found`);
+      }
+
+      return eventPage;
+    } catch (error) {
+      console.error('getEventPageComponents Error:', error);
+      throw new InternalServerErrorException('Failed to fetch event page');
     }
-
-    return eventPage;
   }
 
   // 이벤트 페이지 생성 (Mutation)
   async create(createEventPageInput: CreateEventPageInput): Promise<EventPageResponse> {
+    const { pageJson, ...rest } = createEventPageInput;
+
+    if (!pageJson) {
+      throw new BadRequestException('pageJson is required and cannot be empty');
+    }
+
+    let parsedJson: Record<string, any>;
+
+    try {
+      parsedJson = JSON.parse(pageJson) as Record<string, unknown>;
+    } catch (e) {
+      console.error('JSON.parse error:', e);
+      throw new BadRequestException('pageJson must be a valid JSON string');
+    }
+
     const newEventPage = this.eventPageRepository.create({
-      ...createEventPageInput,
-      pageJson: JSON.parse(createEventPageInput.pageJson) as Record<string, any>, // JSON 변환
+      ...rest,
+      pageJson: parsedJson,
     });
 
     const savedEventPage = await this.eventPageRepository.save(newEventPage);

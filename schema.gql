@@ -12,6 +12,7 @@ input CreateEventHistoryInput {
 
 input CreateEventPageInput {
   eventId: Float!
+  eventTitle: String!
   pageJson: String!
 }
 
@@ -70,4 +71,6 @@ type Query {
 
 input UpdateEventPageInput {
   eventId: Int!
+  eventTitle: String!
+  pageJson: String!
 }
