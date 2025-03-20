@@ -4,6 +4,7 @@ import { EventHistory } from './event-history.entity';
 import { Repository } from 'typeorm';
 import { CreateEventHistoryInput } from './dto/create-event-history.input';
 import { EventPage } from '../events/events.entity';
+import { EventHistoryResponseDto } from './dto/event-history-response.dto';
 
 @Injectable()
 export class EventHistoryService {
@@ -16,7 +17,7 @@ export class EventHistoryService {
   ) {}
 
   // get eventPageId's history data
-  async getEventHistory(eventId: number): Promise<EventHistory[]> {
+  async getEventHistory(eventId: number): Promise<EventHistoryResponseDto[]> {
     const histories = await this.eventHistoryRepository.find({
       where: { eventPage: { eventId: eventId } },
       order: { changedAt: 'DESC' },
@@ -27,7 +28,19 @@ export class EventHistoryService {
       throw new NotFoundException(`No history found for event page with id ${eventId}`);
     }
 
-    return histories;
+    return histories.map(history => ({
+      id: history.id,
+      eventPage: {
+        eventId: history.eventPage.eventId,
+        eventTitle: history.eventPage.eventTitle,
+        changedAt: history.eventPage.createdAt,
+      },
+      previousPageJson: history.previousPageJson,
+      changedPageJson: history.changedPageJson,
+      changeReason: history.changeReason,
+      changedBy: history.changedBy,
+      changedAt: history.changedAt,
+    }));
   }
 
   // save event history data
