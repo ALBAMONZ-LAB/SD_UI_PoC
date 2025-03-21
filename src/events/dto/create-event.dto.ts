@@ -4,12 +4,6 @@ import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateEventPageInput {
-  @ApiProperty({ example: 1, description: '이벤트 ID' })
-  @IsNotEmpty()
-  @IsInt()
-  @Field()
-  id: number;
-
   @ApiProperty({ example: 'Spring Festival', description: '이벤트 제목' })
   @IsNotEmpty()
   @IsString()

@@ -12,7 +12,6 @@ input CreateEventHistoryInput {
 
 input CreateEventPageInput {
   eventTitle: String!
-  id: Float!
   pageJson: String!
 }
 
