@@ -19,9 +19,15 @@ export class EventPageController {
   })
   @ApiQuery({ name: 'pageIndex', required: true, type: Number, description: '페이지 번호' })
   @ApiQuery({ name: 'pageRow', required: true, type: Number, description: '한 페이지당 보여줄 행 수' })
+  @ApiQuery({
+    name: 'order',
+    required: false,
+    enum: ['ASC', 'DESC'],
+    description: '정렬 순서 (ASC | DESC), 기본값 DESC',
+  })
   async getPaginatedEventPageIds(@Query() query: PaginationQueryDto): Promise<EventPageIdTitle[]> {
-    const { pageIndex, pageRow } = query;
-    return this.eventPageService.getPaginatedEventPageIds(pageIndex, pageRow);
+    const { pageIndex, pageRow, order } = query;
+    return this.eventPageService.getPaginatedEventPageIds(pageIndex, pageRow, order);
   }
 
   @Get('/all')
