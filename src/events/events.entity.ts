@@ -10,10 +10,6 @@ export class EventPage {
   id: number;
 
   @Field()
-  @Column({ type: 'int', unique: true })
-  eventId: number;
-
-  @Field()
   @Column({ type: 'varchar', length: 255 })
   eventTitle: string;
 
@@ -29,7 +25,7 @@ export class EventPage {
 @ObjectType()
 export class EventPageIdTitle {
   @Field()
-  eventId: number;
+  id: number;
 
   @Field()
   eventTitle: string;

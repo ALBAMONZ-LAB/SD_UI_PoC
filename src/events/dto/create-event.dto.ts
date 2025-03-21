@@ -8,7 +8,7 @@ export class CreateEventPageInput {
   @IsNotEmpty()
   @IsInt()
   @Field()
-  eventId: number;
+  id: number;
 
   @ApiProperty({ example: 'Spring Festival', description: '이벤트 제목' })
   @IsNotEmpty()

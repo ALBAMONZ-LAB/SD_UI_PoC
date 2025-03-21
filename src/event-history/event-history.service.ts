@@ -17,21 +17,21 @@ export class EventHistoryService {
   ) {}
 
   // get eventPageId's history data
-  async getEventHistory(eventId: number): Promise<EventHistoryResponseDto[]> {
+  async getEventHistory(id: number): Promise<EventHistoryResponseDto[]> {
     const histories = await this.eventHistoryRepository.find({
-      where: { eventPage: { eventId: eventId } },
+      where: { eventPage: { id: id } },
       order: { changedAt: 'DESC' },
       relations: ['eventPage'],
     });
 
     if (!histories.length) {
-      throw new NotFoundException(`No history found for event page with id ${eventId}`);
+      throw new NotFoundException(`No history found for event page with id ${id}`);
     }
 
     return histories.map(history => ({
       id: history.id,
       eventPage: {
-        eventId: history.eventPage.eventId,
+        id: history.eventPage.id,
         eventTitle: history.eventPage.eventTitle,
         changedAt: history.eventPage.createdAt,
       },
@@ -65,10 +65,10 @@ export class EventHistoryService {
 
   // save event history data
   async createEventHistory(input: CreateEventHistoryInput): Promise<EventHistory> {
-    const eventPage = await this.eventPageRepository.findOne({ where: { eventId: input.eventId } });
+    const eventPage = await this.eventPageRepository.findOne({ where: { id: input.id } });
 
     if (!eventPage) {
-      throw new NotFoundException(`Event page with id ${input.eventId} not found`);
+      throw new NotFoundException(`Event page with id ${input.id} not found`);
     }
 
     if (!input.previousPageJson || !input.changedPageJson) {

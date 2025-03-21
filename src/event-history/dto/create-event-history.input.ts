@@ -8,7 +8,7 @@ export class CreateEventHistoryInput {
   @IsNotEmpty()
   @IsInt()
   @Field()
-  eventId: number;
+  id: number;
 
   @ApiProperty({ example: '{"title": "Old Title"}', description: '변경 전 페이지 JSON' })
   @IsNotEmpty()

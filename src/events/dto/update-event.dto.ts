@@ -8,7 +8,7 @@ export class UpdateEventPageInput {
   @Field(() => Int)
   @IsInt()
   @IsNotEmpty()
-  eventId: number;
+  id: number;
 
   @ApiProperty({ example: 'Spring Festival', description: '이벤트 제목' })
   @Field()

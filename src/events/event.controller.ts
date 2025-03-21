@@ -30,14 +30,14 @@ export class EventPageController {
     return this.eventPageService.getEventPageIds();
   }
 
-  @Get(':eventId')
+  @Get(':id')
   @ApiOperation({
     summary: '특정 이벤트 페이지 조회',
     description: 'eventId로 특정 이벤트 페이지 데이터를 조회합니다.',
   })
-  @ApiParam({ name: 'eventId', type: Number, description: '조회할 이벤트 페이지 ID' })
-  async getEventPage(@Param('eventId', ParseIntPipe) eventId: number): Promise<EventPage> {
-    return this.eventPageService.getEventPageComponents(eventId);
+  @ApiParam({ name: 'id', type: Number, description: '조회할 이벤트 페이지 ID' })
+  async getEventPage(@Param('id', ParseIntPipe) id: number): Promise<EventPage> {
+    return this.eventPageService.getEventPageComponents(id);
   }
 
   @Post('create')

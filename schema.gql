@@ -6,13 +6,13 @@ input CreateEventHistoryInput {
   changeReason: String!
   changedBy: String!
   changedPageJson: String!
-  eventId: Float!
+  id: Float!
   previousPageJson: String!
 }
 
 input CreateEventPageInput {
-  eventId: Float!
   eventTitle: String!
+  id: Float!
   pageJson: String!
 }
 
@@ -33,7 +33,6 @@ type EventHistory {
 
 type EventPage {
   createdAt: DateTime!
-  eventId: Float!
   eventTitle: String!
   id: ID!
   pageJson: JSON!
@@ -41,8 +40,8 @@ type EventPage {
 
 type EventPageIdTitle {
   createdAt: DateTime!
-  eventId: Float!
   eventTitle: String!
+  id: Float!
 }
 
 type EventPageResponse {
@@ -70,7 +69,7 @@ type Query {
 }
 
 input UpdateEventPageInput {
-  eventId: Int!
   eventTitle: String!
+  id: Int!
   pageJson: String!
 }

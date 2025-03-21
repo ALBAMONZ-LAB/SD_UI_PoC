@@ -1,5 +1,5 @@
 export class EventPageSummaryDto {
-  eventId: number;
+  id: number;
   eventTitle: string;
   changedAt: Date;
 }

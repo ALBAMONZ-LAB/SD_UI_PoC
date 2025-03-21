@@ -19,11 +19,11 @@ export class EventPageService {
   // 모든 이벤트 페이지의 ID 가져오기
   async getEventPageIds(): Promise<EventPageIdTitle[]> {
     const eventPages = await this.eventPageRepository.find({
-      select: ['eventId', 'eventTitle', 'createdAt'],
+      select: ['id', 'eventTitle', 'createdAt'],
     });
 
     return eventPages.map(page => ({
-      eventId: page.eventId,
+      id: page.id,
       eventTitle: page.eventTitle,
       createdAt: page.createdAt,
     }));
@@ -33,14 +33,14 @@ export class EventPageService {
   async getPaginatedEventPageIds(pageIndex: number, pageRow: number): Promise<EventPageIdTitle[]> {
     const adjustedPageIndex = Math.max(0, pageIndex - 1);
     const eventPages = await this.eventPageRepository.find({
-      select: ['eventId', 'eventTitle', 'createdAt'],
+      select: ['id', 'eventTitle', 'createdAt'],
       order: { createdAt: 'DESC' },
       skip: adjustedPageIndex * pageRow,
       take: pageRow,
     });
 
     return eventPages.map(page => ({
-      eventId: page.eventId,
+      id: page.id,
       eventTitle: page.eventTitle,
       createdAt: page.createdAt,
     }));
@@ -48,12 +48,12 @@ export class EventPageService {
 
   // 특정 이벤트 페이지 조회 (Query)
 
-  async getEventPageComponents(eventId: number): Promise<EventPage> {
+  async getEventPageComponents(id: number): Promise<EventPage> {
     try {
-      const eventPage = await this.eventPageRepository.findOne({ where: { eventId } });
+      const eventPage = await this.eventPageRepository.findOne({ where: { id } });
 
       if (!eventPage) {
-        throw new NotFoundException(`Event Page with eventId ${eventId} not found`);
+        throw new NotFoundException(`Event Page with id ${id} not found`);
       }
 
       return eventPage;
@@ -110,10 +110,10 @@ export class EventPageService {
     changeReason?: string,
     changedBy?: string,
   ): Promise<EventPageResponse> {
-    const { eventId, pageJson, ...rest } = updateEventPageInput;
+    const { id, pageJson, ...rest } = updateEventPageInput;
 
     // 기존 페이지 조회
-    const existingPage = await this.eventPageRepository.findOne({ where: { eventId } });
+    const existingPage = await this.eventPageRepository.findOne({ where: { id } });
     if (!existingPage) {
       return {
         success: false,

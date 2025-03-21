@@ -8,10 +8,10 @@ import { EventHistoryResponseDto } from './dto/event-history-response.dto';
 export class EventHistoryController {
   constructor(private readonly eventHistoryService: EventHistoryService) {}
 
-  @Get(':eventId')
+  @Get(':id')
   @ApiOperation({ summary: '이벤트 히스토리 조회', description: '특정 eventPageId의 이벤트 변경 내역을 조회합니다.' })
-  @ApiParam({ name: 'eventId', type: Number, description: '조회할 이벤트 페이지 ID' })
-  async getEventHistory(@Param('eventId', ParseIntPipe) eventId: number): Promise<EventHistoryResponseDto[]> {
-    return this.eventHistoryService.getEventHistory(eventId);
+  @ApiParam({ name: 'id', type: Number, description: '조회할 이벤트 페이지 ID' })
+  async getEventHistory(@Param('id', ParseIntPipe) id: number): Promise<EventHistoryResponseDto[]> {
+    return this.eventHistoryService.getEventHistory(id);
   }
 }
