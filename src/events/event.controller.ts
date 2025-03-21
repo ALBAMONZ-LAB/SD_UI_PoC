@@ -40,17 +40,21 @@ export class EventPageController {
     return this.eventPageService.getEventPageComponents(id);
   }
 
-  @Post('create')
+  @Post()
   @ApiOperation({ summary: '이벤트 페이지 생성', description: '이벤트 페이지 데이터를 생성합니다.' })
   @ApiBody({ type: CreateEventPageInput })
   async createEventPage(@Body() createEventPageInput: CreateEventPageInput): Promise<EventPageResponse> {
     return this.eventPageService.create(createEventPageInput);
   }
 
-  @Patch('update')
+  @Patch(':id')
   @ApiOperation({ summary: '이벤트 페이지 수정', description: '기존 이벤트 페이지 데이터를 수정합니다.' })
+  @ApiParam({ name: 'id', type: Number, description: '수정할 이벤트 페이지 ID' })
   @ApiBody({ type: UpdateEventPageInput })
-  async updateEventPage(@Body() updateEventPageInput: UpdateEventPageInput): Promise<EventPageResponse> {
-    return this.eventPageService.update(updateEventPageInput);
+  async updateEventPage(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateEventPageInput: UpdateEventPageInput,
+  ): Promise<EventPageResponse> {
+    return this.eventPageService.update(id, updateEventPageInput);
   }
 }

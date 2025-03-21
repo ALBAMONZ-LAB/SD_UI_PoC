@@ -3,7 +3,7 @@ import { CreateEventPageInput } from './dto/create-event.dto';
 import { EventPageResponse } from './dto/event-page-response.dto';
 import { EventPage, EventPageIdTitle } from './events.entity';
 import { EventPageService } from './events.service';
-import { UpdateEventPageInput } from './dto/update-event.dto';
+import { UpdateEventPageGQLInput } from './dto/update-event.dto';
 
 @Resolver(() => EventPage)
 export class EventPageResolver {
@@ -53,8 +53,8 @@ export class EventPageResolver {
    * */
   @Mutation(() => EventPageResponse)
   async updateEventPage(
-    @Args('updateEventPageInput') updateEventPageInput: UpdateEventPageInput,
+    @Args('updateEventPageInput') updateEventPageInput: UpdateEventPageGQLInput,
   ): Promise<EventPageResponse> {
-    return this.eventPageService.update(updateEventPageInput);
+    return this.eventPageService.update(updateEventPageInput.id, updateEventPageInput);
   }
 }

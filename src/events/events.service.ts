@@ -106,11 +106,12 @@ export class EventPageService {
 
   // 이벤트 페이지 수정
   async update(
+    id: number,
     updateEventPageInput: UpdateEventPageInput,
     changeReason?: string,
     changedBy?: string,
   ): Promise<EventPageResponse> {
-    const { id, pageJson, ...rest } = updateEventPageInput;
+    const { pageJson, ...rest } = updateEventPageInput;
 
     // 기존 페이지 조회
     const existingPage = await this.eventPageRepository.findOne({ where: { id } });

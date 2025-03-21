@@ -57,7 +57,7 @@ scalar JSON
 type Mutation {
   createEventHistory(createEventHistoryInput: CreateEventHistoryInput!): EventHistory!
   createEventPage(createEventPageInput: CreateEventPageInput!): EventPageResponse!
-  updateEventPage(updateEventPageInput: UpdateEventPageInput!): EventPageResponse!
+  updateEventPage(updateEventPageInput: UpdateEventPageGQLInput!): EventPageResponse!
 }
 
 type Query {
@@ -67,7 +67,7 @@ type Query {
   getPaginatedEventPageIds(pageIndex: Int!, pageRow: Int!): [EventPageIdTitle!]!
 }
 
-input UpdateEventPageInput {
+input UpdateEventPageGQLInput {
   eventTitle: String!
   id: Int!
   pageJson: String!
