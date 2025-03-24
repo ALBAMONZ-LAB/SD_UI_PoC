@@ -30,7 +30,7 @@ async function bootstrap() {
       'http://172.16.240.50:3000',
       'http://172.16.240.50:3001',
     ], // https://studio.apollographql.com/sandbox/explorer 에서 테스트 가능 (전부혀용 true).
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
     preflightContinue: false,
