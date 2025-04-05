@@ -18,6 +18,18 @@ export class EventPage {
   pageJson: object;
 
   @Field()
+  @Column({ type: 'boolean', default: false })
+  isPublished: boolean;
+
+  @Field()
+  @Column({ type: 'timestamp', default: () => 'NOW()' })
+  eventStartDate: string;
+
+  @Field()
+  @Column({ type: 'timestamp', default: () => "NOW() + INTERVAL '1 day'" })
+  eventEndDate: string;
+
+  @Field()
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 }
