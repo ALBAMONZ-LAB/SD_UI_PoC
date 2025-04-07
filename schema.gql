@@ -11,7 +11,10 @@ input CreateEventHistoryInput {
 }
 
 input CreateEventPageInput {
+  eventEndDate: String!
+  eventStartDate: String!
   eventTitle: String!
+  isPublished: Boolean!
   pageJson: String!
 }
 
@@ -32,8 +35,11 @@ type EventHistory {
 
 type EventPage {
   createdAt: DateTime!
+  eventEndDate: String!
+  eventStartDate: String!
   eventTitle: String!
   id: ID!
+  isPublished: Boolean!
   pageJson: JSON!
 }
 
@@ -68,7 +74,10 @@ type Query {
 }
 
 input UpdateEventPageGQLInput {
+  eventEndDate: String!
+  eventStartDate: String!
   eventTitle: String!
   id: Int!
+  isPublished: Boolean!
   pageJson: String!
 }

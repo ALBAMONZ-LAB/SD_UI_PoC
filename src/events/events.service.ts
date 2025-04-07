@@ -60,7 +60,16 @@ export class EventPageService {
         throw new NotFoundException(`Event Page with id ${id} not found`);
       }
 
-      return eventPage;
+      const toDateOnly = (datetime: Date | string) => {
+        const date = new Date(datetime);
+        return date.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+      };
+
+      return {
+        ...eventPage,
+        eventStartDate: toDateOnly(eventPage.eventStartDate),
+        eventEndDate: toDateOnly(eventPage.eventEndDate),
+      } as EventPage;
     } catch (error) {
       console.error('getEventPageComponents Error:', error);
       throw new InternalServerErrorException('Failed to fetch event page');
