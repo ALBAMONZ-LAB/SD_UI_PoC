@@ -41,7 +41,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(process.env.PORT ?? 3000);
   // GraphQL Schema 가져오기
   const gqlSchemaHost = app.get(GraphQLSchemaHost);
   const schema: GraphQLSchema = gqlSchemaHost.schema;
